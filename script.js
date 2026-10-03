@@ -1445,6 +1445,24 @@ sendWhatsAppBtn.addEventListener(
             !!currentRequest.attachment;
 
 
+        /*
+            =========================================
+            تحديد نوع الجهاز
+            =========================================
+
+            إذا كان الجهاز كمبيوتر:
+            لا نستخدم navigator.share()
+
+            لأن ذلك يفتح نافذة Share الخاصة
+            بالمتصفح بدل WhatsApp.
+        */
+
+        const isDesktop =
+            window.matchMedia(
+                "(hover: hover) and (pointer: fine)"
+            ).matches;
+
+
         try {
 
             /*
@@ -1462,10 +1480,75 @@ sendWhatsAppBtn.addEventListener(
                         : "Opening WhatsApp...";
 
 
+                window.open(
+                    currentRequest.whatsappURL,
+                    "_blank",
+                    "noopener,noreferrer"
+                );
+
+
+                return;
+
+            }
+
+
+            /*
+                =========================================
+                الحالة الثانية:
+                توجد صورة + كمبيوتر
+                =========================================
+
+                لا نستخدم Web Share.
+
+                أولًا نحاول نسخ الرسالة،
+                ثم نفتح WhatsApp Web.
+
+                المستخدم يستطيع بعد ذلك:
+                Ctrl + V
+                للصق الرسالة إذا احتاج.
+
+                والصورة يتم إرفاقها يدويًا
+                داخل WhatsApp Web.
+            */
+
+            if (isDesktop) {
+
+                sendWhatsAppText.textContent =
+                    currentLanguage === "ar"
+                        ? "جاري تجهيز WhatsApp..."
+                        : "Preparing WhatsApp...";
+
+
                 /*
-                    فتح WhatsApp مباشرة من حدث الضغط.
-                    لا نستخدم setTimeout هنا حتى لا
-                    يمنع المتصفح نافذة جديدة.
+                    نسخ رسالة WhatsApp
+                */
+
+                try {
+
+                    await navigator.clipboard.writeText(
+                        currentRequest.whatsappMessage
+                    );
+
+                }
+                catch (clipboardError) {
+
+                    /*
+                        إذا فشل النسخ بسبب صلاحيات
+                        المتصفح، لا نوقف العملية.
+
+                        سنفتح WhatsApp على أي حال.
+                    */
+
+                    console.warn(
+                        "Clipboard copy failed:",
+                        clipboardError
+                    );
+
+                }
+
+
+                /*
+                    فتح WhatsApp Web
                 */
 
                 window.open(
@@ -1482,9 +1565,13 @@ sendWhatsAppBtn.addEventListener(
 
             /*
                 =========================================
-                الحالة الثانية:
-                توجد صورة
+                الحالة الثالثة:
+                توجد صورة + هاتف
                 =========================================
+
+                على الهاتف نستفيد من Web Share
+                لأنه يستطيع تمرير الصورة إلى
+                التطبيقات مثل WhatsApp.
             */
 
             sendWhatsAppText.textContent =
@@ -1499,12 +1586,6 @@ sendWhatsAppBtn.addEventListener(
 
             if (shared) {
 
-                /*
-                    تمت عملية المشاركة بنجاح.
-                    النظام/المتصفح سيتولى فتح
-                    التطبيق الذي اختاره المستخدم.
-                */
-
                 return;
 
             }
@@ -1512,11 +1593,10 @@ sendWhatsAppBtn.addEventListener(
 
             /*
                 =========================================
-                Web Share غير مدعوم
+                Web Share غير مدعوم على الهاتف
                 =========================================
 
-                لا نستطيع إرفاق الصورة تلقائيًا.
-                لذلك نفتح WhatsApp بالنص فقط.
+                نفتح WhatsApp بالنص فقط.
             */
 
             sendWhatsAppText.textContent =
@@ -1535,8 +1615,9 @@ sendWhatsAppBtn.addEventListener(
         catch (error) {
 
             /*
-                المستخدم أغلق نافذة المشاركة
-                أو ضغط Cancel.
+                =========================================
+                المستخدم أغلق Share
+                =========================================
             */
 
             if (
@@ -1550,9 +1631,19 @@ sendWhatsAppBtn.addEventListener(
 
 
             /*
-                في حالة حدوث خطأ آخر:
-                نعود إلى WhatsApp بالنص.
+                =========================================
+                أي خطأ آخر
+                =========================================
+
+                نفتح WhatsApp بالنص بدلًا من
+                ترك المستخدم عالقًا.
             */
+
+            sendWhatsAppText.textContent =
+                currentLanguage === "ar"
+                    ? "جاري فتح WhatsApp..."
+                    : "Opening WhatsApp...";
+
 
             window.open(
                 currentRequest.whatsappURL,
@@ -1561,7 +1652,7 @@ sendWhatsAppBtn.addEventListener(
             );
 
         }
-        
+
         finally {
 
             sendWhatsAppBtn.disabled =
@@ -1574,7 +1665,7 @@ sendWhatsAppBtn.addEventListener(
             updateActionButtonLabels();
 
         }
-    
+
     }
 );
 
