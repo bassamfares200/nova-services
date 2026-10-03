@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Nova Services | WhatsApp Request Form</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <main class="page">
+
+        <section class="form-card">
+
+            <div class="form-header">
+
+                <div class="company-logo" id="formLogo" hidden>
+                    <img
+                        id="formLogoImage"
+                        src=""
+                        alt="Company Logo"
+                    >
+                </div>
+
+                <span class="badge">
+                    WhatsApp Service
+                </span>
+
+
+                <div class="language-switcher">
+                    <button
+                        type="button"
+                        class="language-btn active"
+                        data-lang="en"
+                    >
+                        English
+                    </button>
+
+                    <button
+                        type="button"
+                        class="language-btn"
+                        data-lang="ar"
+                    >
+                        العربية
+                    </button>
+                </div>
+
+                <h1 data-i18n="formTitle">
+                    Request a Service
+                </h1>
+
+                <p data-i18n="formDescription">
+                    Fill in the form below and send
+                    your request directly through WhatsApp.
+                </p>
+
+            </div>
+
+
+            <form id="requestForm" novalidate>
+
+
+                <!-- Full Name -->
+
+                <div class="form-group">
+
+                    <label for="fullname" data-i18n="fullnameLabel">
+                        Full Name
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="text"
+                            id="fullname"
+                            name="name"
+                            placeholder="Enter your full name"
+                            data-placeholder="fullnamePlaceholder"
+                            autocomplete="name"
+                        >
+
+                        <span
+                            class="field-status"
+                            id="fullnameStatus"
+                            aria-hidden="true"
+                        ></span>
+
+                    </div>
+
+                    <small
+                        class="error"
+                        id="fullnameError"
+                        role="alert"
+                    ></small>
+
+                </div>
+
+
+                <!-- Phone -->
+
+                <div class="form-group">
+
+                    <label for="phone" data-i18n="phoneLabel">
+                        Phone Number
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="Enter your phone number"
+                            data-placeholder="phonePlaceholder"
+                            inputmode="numeric"
+                            autocomplete="tel"
+                            maxlength="15"
+                        >
+
+                        <span
+                            class="field-status"
+                            id="phoneStatus"
+                            aria-hidden="true"
+                        ></span>
+
+                    </div>
+
+                    <small
+                        class="error"
+                        id="phoneError"
+                        role="alert"
+                    ></small>
+
+                </div>
+                
+                
+                
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="email" data-i18n="emailLabel">
+                        Email Address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="example@email.com"
+                            data-placeholder="emailPlaceholder"
+                            autocomplete="email"
+                        >
+
+                        <span
+                            class="field-status"
+                            id="emailStatus"
+                            aria-hidden="true"
+                        ></span>
+
+                    </div>
+
+                    <small
+                        class="error"
+                        id="emailError"
+                        role="alert"
+                    ></small>
+
+                </div>
+
+                
+                
+                <!-- Service -->
+
+                <div class="form-group">
+
+                    <label for="service" data-i18n="serviceLabel">
+                        Service
+                    </label>
+
+                    <div class="input-wrapper select-wrapper">
+
+                        <select id="service" name="service">
+
+                            <option
+                                value=""
+                                data-i18n="servicePlaceholder"
+                            >
+                                Select a service
+                            </option>
+
+                            <option
+                                value="Website Design"
+                                data-i18n="serviceWebsiteDesign"
+                            >
+                                Website Design
+                            </option>
+
+                            <option
+                                value="Landing Page"
+                                data-i18n="serviceLandingPage"
+                            >
+                                Landing Page
+                            </option>
+
+                            <option
+                                value="HTML Form"
+                                data-i18n="serviceHTMLForm"
+                            >
+                                HTML Form
+                            </option>
+
+                            <option
+                                value="Website Fix"
+                                data-i18n="serviceWebsiteFix"
+                            >
+                                Website Fix
+                            </option>
+
+                        </select>
+
+                        <span
+                            class="field-status"
+                            id="serviceStatus"
+                            aria-hidden="true"
+                        ></span>
+
+                    </div>
+
+                    <small
+                        class="error"
+                        id="serviceError"
+                        role="alert"
+                    ></small>
+
+                </div> 
+
+
+                <!-- Date -->
+
+                <div class="form-group">
+
+                    <label
+                        for="date"
+                        data-i18n="dateLabel"
+                    >
+                        Preferred Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="date"
+                        name="date"
+                    >
+
+                </div>
+
+
+                <!-- Contact Method -->
+
+                <div class="form-group">
+
+                    <label
+                        data-i18n="contactMethodLabel"
+                    >
+                        Preferred Contact Method
+                    </label>
+
+                    <div
+                        class="segmented-control"
+                        role="radiogroup"
+                        aria-label="Preferred Contact Method"
+                    >
+
+                        <label class="segment-option active">
+
+                            <input
+                                type="radio"
+                                name="contact"
+                                value="WhatsApp"
+                                checked
+                            >
+
+                            <span class="segment-content">
+
+                                <span class="segment-icon whatsapp-segment-icon">
+                                    <svg
+                                        viewBox="0 0 32 32"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            d="M19.11 17.29c-.27-.14-1.59-.78-1.84-.87-.25-.09-.43-.14-.61.14-.18.27-.7.87-.86 1.05-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.92 2.93 4.65 4.11.65.28 1.16.45 1.56.58.65.21 1.24.18 1.71.11.52-.08 1.59-.65 1.81-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32z"
+                                        />
+                                        <path
+                                            d="M16.03 3C8.83 3 3 8.83 3 16.03c0 2.29.6 4.44 1.65 6.31L3 29l6.86-1.6a12.97 12.97 0 0 0 6.17 1.56h.01C23.2 28.96 29 23.15 29 16.03 29 8.83 23.2 3 16.03 3zm0 23.62h-.01c-1.93 0-3.82-.52-5.48-1.5l-.39-.23-4.07.95.97-3.97-.25-.41a10.93 10.93 0 0 1-1.68-5.82C5.12 9.59 10.02 4.68 16.03 4.68c5.99 0 10.87 4.91 10.87 10.95 0 6.03-4.89 10.99-10.87 10.99z"
+                                        />
+                                    </svg>
+                                </span>
+
+                                <span data-i18n="contactWhatsApp">
+                                    WhatsApp
+                                </span>
+
+                            </span>
+
+                        </label>
+
+
+                        <label class="segment-option">
+
+                            <input
+                                type="radio"
+                                name="contact"
+                                value="Phone"
+                            >
+
+                            <span class="segment-content">
+
+                                <span class="segment-icon phone-segment-icon">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            d="M6.62 10.79a15.46 15.46 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1C11.61 21 3 12.39 3 2a1 1 0 011-1h3.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"
+                                        />
+                                    </svg>
+                                </span>
+
+                                <span data-i18n="contactPhone">
+                                    Phone
+                                </span>
+
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Message -->
+
+                <div class="form-group">
+    
+                  
+                    <label for="message" data-i18n="messageLabel">
+                        Message
+                    </label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="5"
+                        maxlength="500"
+                        placeholder="Tell us what you need..."
+                        data-placeholder="messagePlaceholder"
+                    ></textarea>
+
+                    <div class="message-meta">
+
+                        <small
+                            class="error"
+                            id="messageError"
+                            role="alert"
+                        ></small>
+
+                        <span
+                            id="messageCounter"
+                            class="message-counter"
+                        >
+                            0 / 500
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- Image Attachment -->
+
+                <div class="form-group">
+
+                    <label
+                        for="attachment"
+                        data-i18n="attachmentLabel"
+                    >
+                        Attach an Image
+                    </label>
+
+                    <div class="attachment-box">
+
+                        <input
+                            type="file"
+                            id="attachment"
+                            name="attachment"
+                            accept="image/*"
+                        >
+
+                        <label
+                            for="attachment"
+                            class="attachment-button"
+                        >
+                            <span class="attachment-icon">
+                                +
+                            </span>
+
+                            <span data-i18n="attachmentButton">
+                                Choose Image
+                            </span>
+                        </label>
+
+                        <p
+                            class="attachment-hint"
+                            data-i18n="attachmentHint"
+                        >
+                            Optional · JPG, PNG or WEBP · Max 5 MB
+                        </p>
+
+                        <div
+                            class="attachment-preview"
+                            id="attachmentPreview"
+                            hidden
+                        >
+
+                            <img
+                                id="attachmentPreviewImage"
+                                src=""
+                                alt="Selected image"
+                            >
+
+                            <div class="attachment-info">
+
+                                <strong id="attachmentName"></strong>
+
+                                <button
+                                    type="button"
+                                    id="removeAttachment"
+                                    class="remove-attachment"
+                                    data-i18n="removeImage"
+                                >
+                                    Remove
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <small
+                        class="error"
+                        id="attachmentError"
+                        role="alert"
+                    ></small>
+
+                </div>
+
+
+                <!-- Terms -->
+
+                <div class="terms">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            required
+                        >
+
+                        <span
+                            data-i18n="termsText"
+                        >
+                            I confirm that the information provided is correct.
+                        </span>
+
+                        <span
+                            class="terms-status"
+                            id="termsStatus"
+                            aria-hidden="true"
+                        ></span>
+
+                    </label>
+
+                    <small
+                        class="error"
+                        id="termsError"
+                        role="alert"
+                    ></small>
+
+                </div>
+
+
+                <!-- Submit -->
+                <button
+                    type="submit"
+                    class="submit-btn"
+                    id="submitBtn"
+                >
+
+                    <span
+                        class="whatsapp-icon"
+                        aria-hidden="true"
+                    >
+                        <svg
+                            viewBox="0 0 32 32"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M19.11 17.29c-.27-.14-1.59-.78-1.84-.87-.25-.09-.43-.14-.61.14-.18.27-.7.87-.86 1.05-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.92 2.93 4.65 4.11.65.28 1.16.45 1.56.58.65.21 1.24.18 1.71.11.52-.08 1.59-.65 1.81-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32z"
+                            />
+                            <path
+                                d="M16.03 3C8.83 3 3 8.83 3 16.03c0 2.29.6 4.44 1.65 6.31L3 29l6.86-1.6a12.97 12.97 0 0 0 6.17 1.56h.01C23.2 28.96 29 23.15 29 16.03 29 8.83 23.2 3 16.03 3zm0 23.62h-.01c-1.93 0-3.82-.52-5.48-1.5l-.39-.23-4.07.95.97-3.97-.25-.41a10.93 10.93 0 0 1-1.68-5.82C5.12 9.59 10.02 4.68 16.03 4.68c5.99 0 10.87 4.91 10.87 10.95 0 6.03-4.89 10.99-10.87 10.99z"
+                            />
+                        </svg>
+                    </span>
+
+                    <span
+                        class="submit-text"
+                        id="submitText"
+                        data-i18n="submitButton"
+                    >
+                        Send Request via WhatsApp
+                    </span>
+
+                    <span 
+                        class="loading-spinner"
+                        id="loadingSpinner"
+                        aria-hidden="true"
+                        hidden
+                    ></span>
+
+                </button>
+               
+
+
+                <p
+                    class="form-note"
+                >
+                    Your information will be prepared
+                    as a WhatsApp message before sending.
+                </p>
+
+
+            </form>
+
+            <!-- =====================================================
+                SUCCESS SCREEN
+            ===================================================== -->
+
+            <div
+                class="success-screen"
+                id="successScreen"
+                hidden
+            >
+
+                <div
+                    class="company-logo success-logo"
+                    id="successLogo"
+                    hidden
+                >
+                    <img
+                        id="successLogoImage"
+                        src=""
+                        alt="Company Logo"
+                    >
+                </div>
+
+                <div class="success-animation">
+
+                    <svg
+                        class="success-check"
+                        viewBox="0 0 52 52"
+                        aria-hidden="true"
+                    >
+
+                        <circle
+                            class="success-circle"
+                            cx="26"
+                            cy="26"
+                            r="24"
+                        />
+
+                        <path
+                            class="success-checkmark"
+                            d="M14 27l8 8 16-18"
+                        />
+
+                    </svg>
+
+                </div>
+
+
+                <span
+                    class="success-badge"
+                    data-i18n="successBadge"
+                >
+                    Request Ready
+                </span>
+
+
+                <h2
+                    data-i18n="successTitle"
+                >
+                    Your request is ready
+                </h2>
+
+
+                <p
+                    class="success-description"
+                    data-i18n="successDescription"
+                >
+                    Your request has been prepared successfully.
+                    Send it to us through WhatsApp to continue.
+                </p>
+
+
+                <div class="request-id-box">
+
+                    <span
+                        data-i18n="requestIdLabel"
+                    >
+                        Request ID
+                    </span>
+
+                    <strong id="successRequestId">
+                        NS-00000000-0000
+                    </strong>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="whatsapp-send-btn"
+                    id="sendWhatsAppBtn"
+                >
+
+                    <span class="whatsapp-icon">
+
+                        <svg
+                            viewBox="0 0 32 32"
+                            aria-hidden="true"
+                        >
+
+                            <path
+                                d="M19.11 17.29c-.27-.14-1.59-.78-1.84-.87-.25-.09-.43-.14-.61.14-.18.27-.7.87-.86 1.05-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.92 2.93 4.65 4.11.65.28 1.16.45 1.56.58.65.21 1.24.18 1.71.11.52-.08 1.59-.65 1.81-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32z"
+                            />
+
+                            <path
+                                d="M16.03 3C8.83 3 3 8.83 3 16.03c0 2.29.6 4.44 1.65 6.31L3 29l6.86-1.6a12.97 12.97 0 0 0 6.17 1.56h.01C23.2 28.96 29 23.15 29 16.03 29 8.83 23.2 3 16.03 3zm0 23.62h-.01c-1.93 0-3.82-.52-5.48-1.5l-.39-.23-4.07.95.97-3.97-.25-.41a10.93 10.93 0 0 1-1.68-5.82C5.12 9.59 10.02 4.68 16.03 4.68c5.99 0 10.87 4.91 10.87 10.95 0 6.03-4.89 10.99-10.87 10.99z"
+                            />
+
+                        </svg>
+
+                    </span>
+
+                    <span
+                        id="sendWhatsAppText"
+                        data-i18n="sendWhatsApp"
+                    >
+                        Send via WhatsApp
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="new-request-btn"
+                    id="newRequestBtn"
+                    data-i18n="newRequest"
+                >
+                    Start New Request
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

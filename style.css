@@ -1,0 +1,1670 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f0fdf4,
+            #f8fafc
+        );
+
+    color: #172033;
+}
+
+.page {
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 40px 20px;
+}
+
+.form-card {
+    width: 100%;
+
+    max-width: 650px;
+
+    background: white;
+
+    border-radius: 24px;
+
+    padding: 40px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(15, 23, 42, 0.10);
+}
+
+.form-header {
+    text-align: center;
+
+    margin-bottom: 35px;
+}
+
+.badge {
+    display: inline-block;
+
+    padding:
+        7px
+        14px;
+
+    border-radius: 50px;
+
+    background: #dcfce7;
+
+    color: #166534;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+.form-header h1 {
+    margin:
+        18px
+        0
+        10px;
+
+    font-size: 36px;
+}
+
+.form-header p {
+    margin: 0;
+
+    color: #64748b;
+
+    line-height: 1.7;
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group > label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+
+    border:
+        1px solid
+        #dbe2ea;
+
+    border-radius: 12px;
+
+    padding:
+        13px
+        15px;
+
+    font-size: 15px;
+
+    font-family: inherit;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #22c55e;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(34, 197, 94, 0.10);
+}
+
+textarea {
+    resize: vertical;
+}
+
+.radio-group {
+    display: flex;
+
+    gap: 20px;
+
+    flex-wrap: wrap;
+}
+
+.radio-option {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    cursor: pointer;
+}
+
+.radio-option input {
+    width: auto;
+}
+
+.terms {
+    margin:
+        10px
+        0
+        25px;
+
+    font-size: 13px;
+
+    color: #64748b;
+}
+
+.terms label {
+    display: flex;
+
+    gap: 8px;
+
+    align-items: flex-start;
+
+    cursor: pointer;
+}
+
+.terms input {
+    width: auto;
+
+    margin-top: 2px;
+}
+
+.submit-btn {
+    width: 100%;
+
+    border: none;
+
+    border-radius: 13px;
+
+    padding:
+        15px
+        20px;
+
+    background: #22c55e;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s,
+        background 0.2s;
+}
+
+.submit-btn:hover {
+    background: #16a34a;
+
+    transform: translateY(-2px);
+}
+
+.form-note {
+    margin:
+        15px
+        0
+        0;
+
+    text-align: center;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+.error {
+    display: block;
+
+    min-height: 18px;
+
+    margin-top: 6px;
+
+    color: #dc2626;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+.input-error {
+    border-color: #dc2626;
+}
+
+@media (max-width: 600px) {
+
+    .page {
+        padding: 20px 12px;
+    }
+
+    .form-card {
+        padding: 25px 18px;
+
+        border-radius: 18px;
+    }
+
+    .form-header h1 {
+        font-size: 29px;
+    }
+
+    .radio-group {
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+}
+
+
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper input {
+    padding-right: 45px;
+}
+
+.field-status {
+    position: absolute;
+
+    right: 14px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 22px;
+    height: 22px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    transition:
+        opacity 0.2s,
+        transform 0.2s;
+}
+
+
+
+.input-wrapper.valid input {
+    border-color: #22c55e;
+}
+
+.input-wrapper.valid input:focus {
+    box-shadow:
+        0 0 0 4px
+        rgba(34, 197, 94, 0.10);
+}
+
+.input-wrapper.valid .field-status {
+    opacity: 1;
+
+    color: #16a34a;
+
+    background: #dcfce7;
+
+    transform:
+        translateY(-50%)
+        scale(1);
+}
+
+.input-wrapper.valid .field-status::after {
+    content: "✓";
+}
+
+
+.input-wrapper.invalid input {
+    border-color: #dc2626;
+}
+
+.input-wrapper.invalid input:focus {
+    box-shadow:
+        0 0 0 4px
+        rgba(220, 38, 38, 0.10);
+}
+
+.input-wrapper.invalid .field-status {
+    opacity: 1;
+
+    color: #dc2626;
+
+    background: #fee2e2;
+}
+
+.input-wrapper.invalid .field-status::after {
+    content: "!";
+}
+
+
+.message-meta {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 12px;
+}
+
+.message-counter {
+    flex-shrink: 0;
+
+    margin-top: 7px;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+.message-counter.limit-reached {
+    color: #dc2626;
+}
+
+.message-counter.near-limit {
+    color: #f59e0b;
+}
+
+
+
+.language-switcher {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+    margin-top: 18px;
+
+    padding: 4px;
+
+    background: #f1f5f9;
+
+    border-radius: 10px;
+}
+
+.language-btn {
+    border: none;
+
+    background: transparent;
+
+    color: #64748b;
+
+    padding: 7px 12px;
+
+    border-radius: 7px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s,
+        color 0.2s;
+}
+
+.language-btn.active {
+    background: white;
+
+    color: #166534;
+
+    box-shadow:
+        0 2px 5px
+        rgba(15, 23, 42, 0.08);
+}
+
+html[dir="rtl"] body {
+    direction: rtl;
+}
+
+html[dir="rtl"] .input-wrapper input {
+    padding-right: 15px;
+    padding-left: 45px;
+}
+
+html[dir="rtl"] .field-status {
+    right: auto;
+    left: 14px;
+}
+
+html[dir="rtl"] .form-header {
+    text-align: center;
+}
+
+html[dir="rtl"] .message-meta {
+    flex-direction: row-reverse;
+}
+
+
+
+/* =========================================================
+   PROFESSIONAL UI
+========================================================= */
+
+button {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   WHATSAPP ICON
+========================================================= */
+
+.whatsapp-icon {
+    width: 22px;
+    height: 22px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+}
+
+.whatsapp-icon svg {
+    width: 100%;
+    height: 100%;
+
+    fill: currentColor;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+.submit-btn {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    min-height: 54px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 8px 20px
+        rgba(34, 197, 94, 0.20);
+}
+
+.submit-btn::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent 25%,
+            rgba(255,255,255,0.22) 50%,
+            transparent 75%
+        );
+
+    transform: translateX(-120%);
+
+    transition:
+        transform 0.6s ease;
+}
+
+.submit-btn:hover::after {
+    transform: translateX(120%);
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(34, 197, 94, 0.25);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.submit-btn:focus-visible,
+.whatsapp-send-btn:focus-visible,
+.new-request-btn:focus-visible,
+.language-btn:focus-visible {
+    outline: 3px solid
+        rgba(34, 197, 94, 0.25);
+
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   DISABLED
+========================================================= */
+
+.submit-btn:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.85;
+
+    transform: none;
+
+    box-shadow:
+        none;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading-spinner {
+    width: 19px;
+    height: 19px;
+
+    border:
+        2px solid
+        rgba(255,255,255,0.35);
+
+    border-top-color:
+        white;
+
+    border-radius: 50%;
+
+    animation:
+        buttonSpin 0.7s linear infinite;
+}
+
+.loading-spinner[hidden] {
+    display: none;
+}
+
+.submit-btn.loading {
+    cursor: wait;
+}
+
+@keyframes buttonSpin {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* =========================================================
+   SUCCESS SCREEN
+========================================================= */
+
+.success-screen {
+    width: 100%;
+
+    text-align: center;
+
+    padding:
+        20px
+        5px;
+
+    animation:
+        successEnter
+        0.45s
+        ease
+        both;
+}
+
+.success-screen[hidden] {
+    display: none;
+}
+
+.success-visible {
+    animation:
+        successEnter
+        0.45s
+        ease
+        both;
+}
+
+@keyframes successEnter {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(18px)
+            scale(0.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   SUCCESS CHECK
+========================================================= */
+
+.success-animation {
+    width: 88px;
+    height: 88px;
+
+    margin:
+        0
+        auto
+        22px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.success-check {
+    width: 88px;
+    height: 88px;
+
+    overflow: visible;
+}
+
+.success-circle {
+    fill: #dcfce7;
+
+    stroke: #22c55e;
+
+    stroke-width: 2;
+
+    stroke-dasharray: 151;
+
+    stroke-dashoffset: 151;
+
+    animation:
+        drawCircle
+        0.7s
+        ease
+        forwards;
+}
+
+.success-checkmark {
+    fill: none;
+
+    stroke: #16a34a;
+
+    stroke-width: 3.5;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    stroke-dasharray: 40;
+
+    stroke-dashoffset: 40;
+
+    animation:
+        drawCheck
+        0.45s
+        0.55s
+        ease
+        forwards;
+}
+
+@keyframes drawCircle {
+
+    to {
+        stroke-dashoffset: 0;
+    }
+
+}
+
+@keyframes drawCheck {
+
+    to {
+        stroke-dashoffset: 0;
+    }
+
+}
+
+
+/* =========================================================
+   SUCCESS BADGE
+========================================================= */
+
+.success-badge {
+    display: inline-block;
+
+    padding:
+        7px
+        13px;
+
+    border-radius: 50px;
+
+    background: #dcfce7;
+
+    color: #166534;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+.success-screen h2 {
+    margin:
+        17px
+        0
+        9px;
+
+    font-size: 30px;
+
+    line-height: 1.2;
+}
+
+.success-description {
+    max-width: 480px;
+
+    margin:
+        0
+        auto
+        24px;
+
+    color: #64748b;
+
+    line-height: 1.7;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   REQUEST ID
+========================================================= */
+
+.request-id-box {
+    max-width: 400px;
+
+    margin:
+        0
+        auto
+        22px;
+
+    padding:
+        14px
+        18px;
+
+    border:
+        1px solid
+        #e2e8f0;
+
+    background:
+        #f8fafc;
+
+    border-radius: 14px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.request-id-box span {
+    color: #64748b;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+.request-id-box strong {
+    color: #172033;
+
+    font-size: 17px;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   WHATSAPP SUCCESS BUTTON
+========================================================= */
+
+.whatsapp-send-btn {
+    width: 100%;
+
+    max-width: 400px;
+
+    min-height: 53px;
+
+    margin:
+        0
+        auto;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    padding:
+        14px
+        20px;
+
+    background: #22c55e;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px
+        rgba(34, 197, 94, 0.20);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.whatsapp-send-btn:hover {
+    background: #16a34a;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(34, 197, 94, 0.25);
+}
+
+.whatsapp-send-btn:active {
+    transform: translateY(0);
+}
+
+.whatsapp-send-btn:disabled {
+    cursor: wait;
+
+    opacity: 0.8;
+}
+
+.whatsapp-send-btn.sending {
+    cursor: wait;
+}
+
+
+/* =========================================================
+   NEW REQUEST BUTTON
+========================================================= */
+
+.new-request-btn {
+    width: 100%;
+
+    max-width: 400px;
+
+    margin:
+        12px
+        auto
+        0;
+
+    min-height: 48px;
+
+    border:
+        1px solid
+        #dbe2ea;
+
+    border-radius: 12px;
+
+    background: white;
+
+    color: #475569;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.new-request-btn:hover {
+    background: #f8fafc;
+
+    border-color: #cbd5e1;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   FORM TRANSITION
+========================================================= */
+
+#requestForm {
+    animation:
+        formEnter
+        0.35s
+        ease;
+}
+
+#requestForm[hidden] {
+    display: none;
+}
+
+@keyframes formEnter {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(8px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE FIRST
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .page {
+        min-height: 100dvh;
+
+        padding:
+            16px
+            10px;
+
+        align-items:
+            flex-start;
+    }
+
+    .form-card {
+        margin-top: 8px;
+
+        padding:
+            26px
+            18px;
+
+        border-radius: 20px;
+    }
+
+    .form-header {
+        margin-bottom: 27px;
+    }
+
+    .form-header h1 {
+        font-size: 28px;
+
+        line-height: 1.2;
+    }
+
+    .form-header p {
+        font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+        min-height: 50px;
+
+        font-size: 16px;
+    }
+
+    textarea {
+        min-height: 125px;
+    }
+
+    .submit-btn {
+        min-height: 55px;
+
+        font-size: 15px;
+    }
+
+    .success-screen {
+        padding:
+            10px
+            0;
+    }
+
+    .success-animation,
+    .success-check {
+        width: 76px;
+        height: 76px;
+    }
+
+    .success-screen h2 {
+        font-size: 27px;
+    }
+
+    .success-description {
+        font-size: 13px;
+    }
+
+    .request-id-box {
+        padding:
+            13px
+            15px;
+    }
+
+}
+
+
+html[dir="rtl"] {
+
+    text-align: right;
+}
+
+html[dir="rtl"] .form-header,
+html[dir="rtl"] .success-screen {
+    text-align: center;
+}
+
+html[dir="rtl"] .input-wrapper input {
+    padding-right: 15px;
+    padding-left: 45px;
+}
+
+html[dir="rtl"] .field-status {
+    right: auto;
+    left: 14px;
+}
+
+html[dir="rtl"] .language-switcher {
+    direction: ltr;
+}
+
+html[dir="rtl"] .radio-group {
+    justify-content: flex-start;
+}
+
+html[dir="rtl"] .message-meta {
+    direction: rtl;
+}
+
+
+/* =========================================================
+   PHASE 3 + 4 ENHANCEMENTS
+   Logo / Segmented Contact / Attachment / Field States
+========================================================= */
+
+
+/* =========================================================
+   COMPANY LOGO
+========================================================= */
+
+.company-logo {
+
+    width: 76px;
+    height: 76px;
+
+    margin: 0 auto 18px;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(15, 23, 42, 0.08);
+
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.10);
+
+}
+
+
+.company-logo img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+
+}
+
+
+.success-logo {
+
+    width: 82px;
+    height: 82px;
+
+    margin-bottom: 20px;
+
+}
+
+
+/* =========================================================
+   SERVICE SELECT STATUS
+========================================================= */
+
+.select-wrapper {
+
+    position: relative;
+
+}
+
+
+.select-wrapper select {
+
+    width: 100%;
+
+}
+
+
+.select-wrapper .field-status {
+
+    position: absolute;
+
+    top: 50%;
+
+    right: 42px;
+
+    transform: translateY(-50%);
+
+    pointer-events: none;
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+}
+
+
+.select-wrapper.valid .field-status {
+
+    color: #16a34a;
+
+}
+
+
+.select-wrapper.invalid .field-status {
+
+    color: #dc2626;
+
+}
+
+
+/* =========================================================
+   TERMS STATUS
+========================================================= */
+
+.terms label {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 9px;
+
+}
+
+
+.terms-status {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 20px;
+    height: 20px;
+
+    margin-inline-start: 3px;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+}
+
+
+.terms-status:not(:empty) {
+
+    color: #16a34a;
+
+}
+
+
+/* =========================================================
+   SEGMENTED CONTACT METHOD
+========================================================= */
+
+.segmented-control {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 6px;
+
+    padding: 5px;
+
+    border-radius: 16px;
+
+    background: #f1f5f9;
+
+    border: 1px solid #e2e8f0;
+
+}
+
+
+.segment-option {
+
+    position: relative;
+
+    cursor: pointer;
+
+    margin: 0;
+
+}
+
+
+.segment-option input {
+
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+
+
+.segment-content {
+
+    min-height: 50px;
+
+    padding: 10px 14px;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    font-weight: 700;
+
+    color: #475569;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+.segment-icon {
+
+    width: 21px;
+    height: 21px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.segment-icon svg {
+
+    width: 100%;
+    height: 100%;
+
+    fill: currentColor;
+
+}
+
+
+.segment-option:hover .segment-content {
+
+    color: #0f172a;
+
+}
+
+
+.segment-option input:checked + .segment-content {
+
+    background: #ffffff;
+
+    color: #128c7e;
+
+    box-shadow:
+        0 5px 16px rgba(15, 23, 42, 0.10);
+
+}
+
+
+.segment-option input:focus-visible + .segment-content {
+
+    outline: 3px solid rgba(37, 99, 235, 0.20);
+
+    outline-offset: 2px;
+
+}
+
+
+html[dir="rtl"] .segment-content {
+
+    direction: rtl;
+
+}
+
+
+/* =========================================================
+   IMAGE ATTACHMENT
+========================================================= */
+
+.attachment-box {
+
+    padding: 16px;
+
+    border: 1px dashed #cbd5e1;
+
+    border-radius: 16px;
+
+    background: #f8fafc;
+
+    text-align: center;
+
+}
+
+
+#attachment {
+
+    display: none;
+
+}
+
+
+.attachment-button {
+
+    min-height: 48px;
+
+    padding: 10px 18px;
+
+    border-radius: 12px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    cursor: pointer;
+
+    font-weight: 700;
+
+    background: #ffffff;
+
+    border: 1px solid #cbd5e1;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+
+}
+
+
+.attachment-button:hover {
+
+    transform: translateY(-1px);
+
+    border-color: #94a3b8;
+
+    box-shadow:
+        0 8px 20px rgba(15, 23, 42, 0.08);
+
+}
+
+
+.attachment-icon {
+
+    width: 24px;
+    height: 24px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #0f172a;
+
+    color: #ffffff;
+
+    font-size: 18px;
+
+    line-height: 1;
+
+}
+
+
+.attachment-hint {
+
+    margin: 10px 0 0;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+}
+
+
+.attachment-preview {
+
+    margin-top: 16px;
+
+    padding: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    text-align: start;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 14px;
+
+}
+
+
+.attachment-preview img {
+
+    width: 64px;
+    height: 64px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    flex-shrink: 0;
+
+}
+
+
+.attachment-info {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+}
+
+
+.attachment-info strong {
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+.remove-attachment {
+
+    align-self: flex-start;
+
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+
+    color: #dc2626;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .company-logo {
+
+        width: 68px;
+        height: 68px;
+
+    }
+
+
+    .success-logo {
+
+        width: 74px;
+        height: 74px;
+
+    }
+
+
+    .segment-content {
+
+        min-height: 48px;
+
+        padding: 9px 8px;
+
+        font-size: 14px;
+
+    }
+
+
+    .attachment-preview {
+
+        align-items: flex-start;
+
+    }
+
+}
+
+html[dir="rtl"] .select-wrapper .field-status {
+
+    right: auto;
+
+    left: 42px;
+
+}
