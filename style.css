@@ -1668,3 +1668,42 @@ html[dir="rtl"] .select-wrapper .field-status {
     left: 42px;
 
 }
+
+
+
+.desktop-attachment-notice {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    color: #9a3412;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    animation: noticeEntry 0.35s ease;
+}
+
+.desktop-attachment-notice strong {
+    font-size: 14px;
+}
+
+.desktop-attachment-notice span {
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+@keyframes noticeEntry {
+
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}

@@ -1520,7 +1520,9 @@ sendWhatsAppBtn.addEventListener(
 
 
                 /*
-                    نسخ رسالة WhatsApp
+                    =========================================
+                    نسخ رسالة الطلب
+                    =========================================
                 */
 
                 try {
@@ -1532,13 +1534,6 @@ sendWhatsAppBtn.addEventListener(
                 }
                 catch (clipboardError) {
 
-                    /*
-                        إذا فشل النسخ بسبب صلاحيات
-                        المتصفح، لا نوقف العملية.
-
-                        سنفتح WhatsApp على أي حال.
-                    */
-
                     console.warn(
                         "Clipboard copy failed:",
                         clipboardError
@@ -1548,7 +1543,9 @@ sendWhatsAppBtn.addEventListener(
 
 
                 /*
+                    =========================================
                     فتح WhatsApp Web
+                    =========================================
                 */
 
                 window.open(
@@ -1558,10 +1555,64 @@ sendWhatsAppBtn.addEventListener(
                 );
 
 
+                /*
+                    =========================================
+                    تنبيه إرفاق الصورة
+                    =========================================
+                */
+
+                let attachmentNotice =
+                    document.getElementById(
+                        "desktopAttachmentNotice"
+                    );
+
+
+                if (!attachmentNotice) {
+
+                    attachmentNotice =
+                        document.createElement("div");
+
+                    attachmentNotice.id =
+                        "desktopAttachmentNotice";
+
+                    attachmentNotice.className =
+                        "desktop-attachment-notice";
+
+
+                    sendWhatsAppBtn.insertAdjacentElement(
+                        "afterend",
+                        attachmentNotice
+                    );
+
+                }
+
+
+                attachmentNotice.innerHTML =
+                    currentLanguage === "ar"
+                        ? `
+                            <strong>📎 أرفق الصورة قبل الإرسال</strong>
+                            <span>
+                                تم فتح WhatsApp ونسخ رسالة الطلب.
+                                يرجى إرفاق الصورة يدويًا في WhatsApp Web
+                                ثم إرسال الرسالة.
+                            </span>
+                        `
+                        : `
+                            <strong>📎 Attach the image before sending</strong>
+                            <span>
+                                WhatsApp has been opened and your request message
+                                was copied. Please attach the image manually
+                                in WhatsApp Web, then send the message.
+                            </span>
+                        `;
+
+
+                attachmentNotice.hidden = false;
+
+
                 return;
 
             }
-
 
             /*
                 =========================================
