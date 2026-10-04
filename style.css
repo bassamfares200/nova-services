@@ -1683,6 +1683,7 @@ html[dir="rtl"] .select-wrapper .field-status {
     flex-direction: column;
     gap: 5px;
     animation: noticeEntry 0.35s ease;
+    margin-bottom: 16px;
 }
 
 .desktop-attachment-notice strong {
@@ -1692,6 +1693,10 @@ html[dir="rtl"] .select-wrapper .field-status {
 .desktop-attachment-notice span {
     font-size: 13px;
     line-height: 1.6;
+}
+
+.desktop-attachment-notice[hidden] {
+    display: none !important;
 }
 
 @keyframes noticeEntry {

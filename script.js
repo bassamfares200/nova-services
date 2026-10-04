@@ -115,7 +115,16 @@ const successLogo =
     document.getElementById("successLogo");
 
 const successLogoImage =
-    document.getElementById("successLogoImage");    
+    document.getElementById("successLogoImage");  
+    
+const desktopAttachmentNotice =
+    document.getElementById("desktopAttachmentNotice");
+
+const desktopAttachmentTitle =
+    document.getElementById("desktopAttachmentTitle");
+
+const desktopAttachmentMessage =
+    document.getElementById("desktopAttachmentMessage");    
 
 /* =========================================================
    3. LANGUAGE DATA
@@ -218,8 +227,14 @@ const translations = {
         sendWhatsApp:
             "Send via WhatsApp",
 
-        share: 
-            "Share",    
+        share:
+            "Share",
+
+        desktopAttachmentTitle:
+            "Attach the image before sending",
+
+        desktopAttachmentMessage:
+            "WhatsApp has been opened and your request message was copied. Please attach the image manually in WhatsApp Web, then send the message.",
 
         newRequest:
             "Start New Request",    
@@ -358,6 +373,12 @@ const translations = {
 
         share:
             "مشاركة",    
+        
+        desktopAttachmentTitle:
+            "أرفق الصورة قبل الإرسال",
+
+        desktopAttachmentMessage:
+            "تم فتح WhatsApp ونسخ رسالة الطلب. يرجى إرفاق الصورة يدويًا في WhatsApp Web، ثم إرسال الرسالة.",    
 
         newRequest:
             "بدء طلب جديد",
@@ -872,6 +893,7 @@ function clearAttachment() {
 
     attachmentError.textContent = "";
 
+
     if (attachmentObjectURL) {
 
         URL.revokeObjectURL(
@@ -882,9 +904,32 @@ function clearAttachment() {
 
     }
 
+
+    if (currentRequest) {
+
+        currentRequest.attachment = null;
+
+    }
+
+
+    /*
+        مهم جدًا:
+        إذا تمت إزالة الصورة،
+        يجب إخفاء تنبيه إرفاق الصورة
+        فورًا.
+    */
+
+    desktopAttachmentNotice.hidden = true;
+
+    desktopAttachmentTitle.textContent = "";
+
+    desktopAttachmentMessage.textContent = "";
+
+
     updateActionButtonLabels();
 
 }
+
 
 /* =========================================================
    12. MESSAGE COUNTER
@@ -1149,6 +1194,83 @@ Submitted through ${CONFIG.companyName}`;
 }
 
 
+
+function updateDesktopAttachmentNotice() {
+
+    /*
+        =========================================
+        هل الجهاز Desktop؟
+        =========================================
+    */
+
+    const isDesktop =
+        window.matchMedia(
+            "(hover: hover) and (pointer: fine)"
+        ).matches;
+
+
+    /*
+        =========================================
+        هل توجد صورة فعلية؟
+        =========================================
+    */
+
+    const hasAttachment =
+        !!(
+            currentRequest &&
+            currentRequest.attachment
+        );
+
+
+    /*
+        =========================================
+        لا توجد صورة
+        =========================================
+
+        نخفي الـ frame بالكامل.
+    */
+
+    if (!isDesktop || !hasAttachment) {
+
+        desktopAttachmentNotice.hidden = true;
+
+        desktopAttachmentNotice.style.display = "none";
+
+        desktopAttachmentTitle.textContent = "";
+        desktopAttachmentMessage.textContent = "";
+
+        return;
+
+    }
+
+
+    /*
+        =========================================
+        توجد صورة + Desktop
+        =========================================
+
+        نعرض الـ frame.
+    */
+
+    desktopAttachmentTitle.textContent =
+        getTranslation(
+            "desktopAttachmentTitle"
+        );
+
+    desktopAttachmentMessage.textContent =
+        getTranslation(
+            "desktopAttachmentMessage"
+        );
+
+
+    desktopAttachmentNotice.hidden = false;
+
+    desktopAttachmentNotice.style.display = "flex";
+
+}
+
+
+
 /* =========================================================
    17. SUBMIT
 ========================================================= */
@@ -1303,11 +1425,12 @@ form.addEventListener(
                     "success-visible"
                 );
 
-
                 successRequestId.textContent =
                     currentRequest.requestId;
 
-                updateActionButtonLabels();    
+                updateDesktopAttachmentNotice();
+
+                updateActionButtonLabels();   
 
                 submitBtn.disabled = false;
 
@@ -1554,61 +1677,7 @@ sendWhatsAppBtn.addEventListener(
                     "noopener,noreferrer"
                 );
 
-
-                /*
-                    =========================================
-                    تنبيه إرفاق الصورة
-                    =========================================
-                */
-
-                let attachmentNotice =
-                    document.getElementById(
-                        "desktopAttachmentNotice"
-                    );
-
-
-                if (!attachmentNotice) {
-
-                    attachmentNotice =
-                        document.createElement("div");
-
-                    attachmentNotice.id =
-                        "desktopAttachmentNotice";
-
-                    attachmentNotice.className =
-                        "desktop-attachment-notice";
-
-
-                    sendWhatsAppBtn.insertAdjacentElement(
-                        "afterend",
-                        attachmentNotice
-                    );
-
-                }
-
-
-                attachmentNotice.innerHTML =
-                    currentLanguage === "ar"
-                        ? `
-                            <strong>📎 أرفق الصورة قبل الإرسال</strong>
-                            <span>
-                                تم فتح WhatsApp ونسخ رسالة الطلب.
-                                يرجى إرفاق الصورة يدويًا في WhatsApp Web
-                                ثم إرسال الرسالة.
-                            </span>
-                        `
-                        : `
-                            <strong>📎 Attach the image before sending</strong>
-                            <span>
-                                WhatsApp has been opened and your request message
-                                was copied. Please attach the image manually
-                                in WhatsApp Web, then send the message.
-                            </span>
-                        `;
-
-
-                attachmentNotice.hidden = false;
-
+             
 
                 return;
 
@@ -1728,6 +1797,13 @@ newRequestBtn.addEventListener(
 
         form.reset();
 
+        const termsStatus =
+            document.getElementById("termsStatus");
+
+        if (termsStatus) {
+            termsStatus.textContent = "";
+        }
+
         clearAttachment();
 
         /*
@@ -1768,6 +1844,11 @@ newRequestBtn.addEventListener(
 
         updateMessageCounter();
 
+        desktopAttachmentNotice.hidden = true;
+
+        desktopAttachmentTitle.textContent = "";
+
+        desktopAttachmentMessage.textContent = "";
 
         successScreen.hidden = true;
 
@@ -1969,6 +2050,8 @@ function setLanguage(language) {
         validateTerms();
 
     }
+
+    updateDesktopAttachmentNotice();
 
     updateActionButtonLabels();
 
